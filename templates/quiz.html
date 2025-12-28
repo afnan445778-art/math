@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+    <style>
+        body { font-family: Arial; text-align: center; background: #f9f9f9; }
+        .question { font-size: 2em; margin: 20px; }
+        input { padding: 10px; font-size: 1em; width: 100px; text-align: center; }
+        button { padding: 10px 20px; font-size: 1em; }
+        .timer { font-size: 1.5em; color: red; }
+        .score { font-size: 1.2em; margin: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Mental Math Quiz</h2>
+    <div class="score">Score: {{score}}</div>
+    <div class="timer" id="timer">Time: 7</div>
+    <div class="question">{{a}} {{operation}} {{b}} = ?</div>
+    <form method="post" id="quizForm">
+        <input type="text" name="answer" required autofocus>
+        <input type="hidden" name="correct" value="{{correct}}">
+        <input type="hidden" name="start_time" value="{{start_time}}">
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        let timeLeft = 7;
+        const timerElement = document.getElementById("timer");
+        const form = document.getElementById("quizForm");
+
+        const countdown = setInterval(() => {
+            timeLeft -= 1;
+            timerElement.textContent = "Time: " + timeLeft;
+            if(timeLeft <= 0){
+                clearInterval(countdown);
+                alert("⏰ Time's up!");
+                form.submit();
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
